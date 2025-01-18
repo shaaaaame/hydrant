@@ -1,5 +1,6 @@
 import { Grid, Box, Heading, Tabs, Flex} from "@chakra-ui/react"
 import { LuActivity, LuHandHelping} from "react-icons/lu"
+import Data from "./AssistanceComponents/Data"
 
 import { APIProvider, Map } from "@vis.gl/react-google-maps"
 import "./Assistance.css"
@@ -8,25 +9,24 @@ function Assistance() {
   return (
     <Grid templateColumns="repeat(2, 1fr)">
         <Flex width={"100%"} height="100svh" p="20px" direction="column" gap="20px">
-          <Heading as="h3" color="orange.300">hydant.</Heading>
+          <Heading as="h3" color="orange.300">hydrant.</Heading>
 
-          <Box>
-          <Tabs.Root defaultValue="data">
+          <Tabs.Root defaultValue="data" variant="line" size="lg" height="100%">
             <Tabs.List>
-              <Tabs.Trigger value="data" >
+              <Tabs.Trigger value="data" focusRing={"none"} >
                 <LuActivity />
                 Data
               </Tabs.Trigger>
-              <Tabs.Trigger value="aid" >
+              <Tabs.Trigger value="aid" focusRing="none">
                 <LuHandHelping />
                 Aid
               </Tabs.Trigger>
             </Tabs.List>
-            <Tabs.Content value="data">Data</Tabs.Content>
+            <Tabs.Indicator rounded="12" />
+            <Tabs.Content value="data" height="90%"><Data/></Tabs.Content>
             <Tabs.Content value="aid">Aid</Tabs.Content>
           </Tabs.Root>
 
-          </Box>
         </Flex>
 
         <Box width={"60vw"} height={"100svh"}>
