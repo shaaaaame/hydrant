@@ -1,7 +1,7 @@
 
 # Hydrant
 
-**Forest fire emergency aid with data visualization to help stop fires**
+**Forest fire emergency aid with data visualization to help stop fires.**
 
 Hydrant is a project designed to help visualize fire data (both satellite and user‐reported) on an interactive Google Map. It includes a robust backend built with **NestJS**, **MySQL**, and **Docker**, alongside a **React**-based frontend.
 
