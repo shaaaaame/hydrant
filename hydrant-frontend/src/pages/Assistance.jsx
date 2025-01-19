@@ -1,6 +1,7 @@
-import { Grid, Box, Heading, Tabs, Flex, Button } from '@chakra-ui/react'
+import { Grid, Box, Heading, Tabs, Flex, Button, Image } from '@chakra-ui/react'
 import { LuActivity, LuHandHelping, LuHouse } from 'react-icons/lu'
 import Data from './AssistanceComponents/Data'
+import { MdOutlineFireHydrantAlt } from 'react-icons/md'
 
 import { APIProvider, Map, Marker, AdvancedMarker, Pin, useMap } from '@vis.gl/react-google-maps'
 import './Assistance.css'
@@ -8,25 +9,44 @@ import Aid from './AssistanceComponents/Aid'
 import { Link } from 'react-router'
 import { useQuery } from '@tanstack/react-query'
 import { getVideo } from '../utils/client'
-import { buildHeatmapLayer } from '../utils/map'
-import { useState } from 'react'
+import { buildHeatmapLayer, getHydrants } from '../utils/map'
+import { useEffect, useState } from 'react'
 
 function Assistance() {
   const [aidData, setAidData] = useState()
   const [index, setIndex] = useState('data')
+  const [heatmap, setHeatmap] = useState()
+  const [hydrants, setHydrants] = useState([])
+
+  const [showHydrants, setShowHydrants] = useState(false)
+  const [showMarkers, setShowMarkers] = useState(false)
+  const [showHeatmap, setShowHeatmap] = useState(false)
 
   const time = new Date()
 
   const map = useMap()
 
-  buildHeatmapLayer(map)
+  useEffect(() => {
+    getHydrants().then((d) => setHydrants(d))
+  }, [])
+
+  useEffect(() => {
+    console.log(showHeatmap)
+    if (!heatmap && map && showHeatmap) {
+      buildHeatmapLayer(map).then((res) => setHeatmap(res))
+    }
+
+    if (heatmap && !showHeatmap) {
+      heatmap.setMap(null)
+    }
+  }, [map, showHeatmap])
 
   const { data, isLoading } = useQuery({
     queryKey: ['video'],
     queryFn: () => {
       return getVideo()
     },
-    refetchInterval: 2000,
+    refetchInterval: 4000,
   })
 
   return (
@@ -65,7 +85,14 @@ function Assistance() {
           </Tabs.List>
           <Tabs.Indicator rounded="12" />
           <Tabs.Content value="data" height="90%">
-            <Data />
+            <Data
+              showHydrants={showHydrants}
+              setShowHydrants={setShowHydrants}
+              showMarkers={showMarkers}
+              setShowMarkers={setShowMarkers}
+              showHeatmap={showHeatmap}
+              setShowHeatmap={setShowHeatmap}
+            />
           </Tabs.Content>
           <Tabs.Content value="aid" height="90%">
             <Aid marker={aidData} />
@@ -77,11 +104,12 @@ function Assistance() {
         <Map
           mapId="1601de34a15a1520"
           style={{ width: '100%', height: '100%' }}
-          defaultCenter={{ lat: 43.6608616, lng: -79.3991105 }}
-          defaultZoom={17}
+          defaultCenter={{ lat: 34.0549, lng: -118.2426 }}
+          defaultZoom={12}
           gestureHandling={'greedy'}
           disableDefaultUI={true}>
           {data &&
+            showMarkers &&
             data.map((d) => {
               return (
                 <AdvancedMarker
@@ -95,9 +123,18 @@ function Assistance() {
                 </AdvancedMarker>
               )
             })}
-          {/* <AdvancedMarker position={{ lat: 43.6608616, lng: -79.3991105 }}>
-              <Pin background={'#0f9d58'} borderColor={'#006425'} glyphColor={'#60d98f'} />
-            </AdvancedMarker> */}
+
+          {hydrants &&
+            showHydrants &&
+            hydrants.map((d) => {
+              return (
+                <AdvancedMarker
+                  key={d.HYDRTS_ID}
+                  position={{ lat: Number(d.Latitude), lng: Number(d.Longitude) }}>
+                  <img src="hydrant.svg" alt="hydrant" width="10px" height="10px" />
+                </AdvancedMarker>
+              )
+            })}
         </Map>
       </Box>
     </Grid>

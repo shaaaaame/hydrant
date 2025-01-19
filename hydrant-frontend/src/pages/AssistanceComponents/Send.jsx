@@ -38,14 +38,13 @@ function Send({ recordedChunks, location, rank, name, description }) {
       const blob = new Blob(recordedChunks, {
         type: 'video/webm',
       })
-
       mutate({
         video: blob,
         latitude: 43.6608616,
         longitude: -79.3991105,
         rank: rank,
         name: name,
-        decription: description,
+        description: description,
         user: 1,
       })
     }

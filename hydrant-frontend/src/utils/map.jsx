@@ -46,6 +46,14 @@ function makeDateTime(dateStr, timeStr) {
   return new Date(year, month, day, hour, min)
 }
 
+export async function getHydrants() {
+  const satFile = await (await fetch('https://localhost:5173/hydrants_query.csv')).blob()
+
+  const hydrantsData = await parseCsvFile(satFile)
+
+  return hydrantsData
+}
+
 export async function buildHeatmapLayer(map) {
   // If an old heatmap exists, remove it
   //   if (heatmap) {
