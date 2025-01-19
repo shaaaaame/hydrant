@@ -24,6 +24,8 @@ export const postVideo = async (body) => {
   formData.append('latitude', body.latitude)
   formData.append('longitude', body.longitude)
   formData.append('rank', body.rank)
+  formData.append('name', body.name)
+  formData.append('description', body.description)
 
   try {
     const response = await fetch(url, {

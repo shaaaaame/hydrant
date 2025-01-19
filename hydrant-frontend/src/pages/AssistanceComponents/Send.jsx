@@ -6,7 +6,7 @@ import { Link } from 'react-router'
 import { LuBadgeCheck } from 'react-icons/lu'
 import { postVideo } from '../../utils/client'
 
-function Send({ recordedChunks, location, rank }) {
+function Send({ recordedChunks, location, rank, name, description }) {
   const [sent, setSent] = useState(false)
   const handleDownload = useCallback(() => {
     if (recordedChunks.length) {
@@ -44,6 +44,8 @@ function Send({ recordedChunks, location, rank }) {
         latitude: 43.6608616,
         longitude: -79.3991105,
         rank: rank,
+        name: name,
+        decription: description,
         user: 1,
       })
     }

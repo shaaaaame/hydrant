@@ -13,6 +13,7 @@ import { useState } from 'react'
 
 function Assistance() {
   const [aidData, setAidData] = useState()
+  const [index, setIndex] = useState('data')
 
   const time = new Date()
 
@@ -45,7 +46,14 @@ function Assistance() {
             </Link>
           </Flex>
 
-          <Tabs.Root defaultValue="data" variant="line" size="lg" height="100%">
+          <Tabs.Root
+            onValueChange={(i) => {
+              setIndex(i.value)
+            }}
+            value={index}
+            variant="line"
+            size="lg"
+            height="100%">
             <Tabs.List>
               <Tabs.Trigger value="data" focusRing={'none'}>
                 <LuActivity />
@@ -80,8 +88,11 @@ function Assistance() {
                   <AdvancedMarker
                     key={d.request_id}
                     position={{ lat: Number(d.latitude), lng: Number(d.longitude) }}
-                    onClick={() => setAidData(d)}>
-                    <Pin background={'#0f9d58'} borderColor={'#006425'} glyphColor={'#60d98f'} />
+                    onClick={() => {
+                      setAidData(d)
+                      setIndex('aid')
+                    }}>
+                    <Pin background={'#fdba74'} borderColor={'#242424'} />
                   </AdvancedMarker>
                 )
               })}

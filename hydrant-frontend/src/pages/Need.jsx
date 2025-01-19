@@ -19,6 +19,8 @@ function Need() {
   const [recordedChunks, setRecordedChunks] = useState([])
   const [location, setLocation] = useState()
   const [rank, setRank] = useState(1)
+  const [name, setName] = useState('')
+  const [description, setDescription] = useState('')
 
   return (
     <Box width="100vw" height="100svh">
@@ -33,10 +35,21 @@ function Need() {
           <WebcamVideo setRecordedChunks={setRecordedChunks} />
         </StepsContent>
         <StepsContent index={1}>
-          <Information setLocation={setLocation} setRank={setRank} />
+          <Information
+            setLocation={setLocation}
+            setRank={setRank}
+            setName={setName}
+            setDescription={setDescription}
+          />
         </StepsContent>
         <StepsContent index={2}>
-          <Send recordedChunks={recordedChunks} location={location} rank={rank} />
+          <Send
+            recordedChunks={recordedChunks}
+            location={location}
+            rank={rank}
+            name={name}
+            description={description}
+          />
         </StepsContent>
         <StepsCompletedContent>All steps are complete!</StepsCompletedContent>
       </StepsRoot>

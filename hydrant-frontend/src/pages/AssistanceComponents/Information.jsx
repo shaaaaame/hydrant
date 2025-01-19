@@ -8,6 +8,7 @@ import {
   Flex,
   StepsNextTrigger,
   Input,
+  Textarea,
 } from '@chakra-ui/react'
 import { LuArrowRight, LuDownload } from 'react-icons/lu'
 import { useCallback, useEffect, useState } from 'react'
@@ -15,7 +16,7 @@ import { useMutation } from '@tanstack/react-query'
 import { Radio, RadioGroup } from '../../components/ui/radio'
 import { Field } from '../../components/ui/field'
 
-function Information({ setLocation, setRank }) {
+function Information({ setLocation, setRank, setName, setDescription }) {
   function success(position) {
     const latitude = position.coords.latitude
     const longitude = position.coords.longitude
@@ -36,10 +37,20 @@ function Information({ setLocation, setRank }) {
   return (
     <Flex direction="column" justify={'flex-start'} padding={'20px'} width="100%" gap="20px">
       <Field label="Name">
-        <Input placeholder="John" />
+        <Input
+          placeholder="John"
+          onChange={(e) => {
+            setName(e.target.value)
+          }}
+        />
       </Field>
       <Field label="Description">
-        <Input placeholder="Description" />
+        <Textarea
+          placeholder="Description"
+          onChange={(e) => {
+            setDescription(e.target.value)
+          }}
+        />
       </Field>
       <Text>Please rank the fire on the following scale:</Text>
       <Box>
