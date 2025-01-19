@@ -29,6 +29,18 @@ function Details({ marker }) {
         <Flex direction="column" justify="flex-start" gap="15px">
           <p>
             <Text color="orange.300" fontWeight={'bold'}>
+              Name:{' '}
+            </Text>{' '}
+            {marker.name}
+          </p>
+          <p>
+            <Text color="orange.300" fontWeight={'bold'}>
+              Description:{' '}
+            </Text>{' '}
+            {marker.description}
+          </p>
+          <p>
+            <Text color="orange.300" fontWeight={'bold'}>
               Time:{' '}
             </Text>{' '}
             {marker.created_at}

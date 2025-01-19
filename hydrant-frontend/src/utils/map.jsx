@@ -1,8 +1,8 @@
-// var fs = require('fs')
+import Papa from 'papaparse'
 
 function parseCsvFile(file) {
   return new Promise((resolve, reject) => {
-    window.Papa.parse(file, {
+    Papa.parse(file, {
       header: true,
       transformHeader: (h) => h.replace(/\uFEFF/g, ''),
       skipEmptyLines: true,
@@ -46,24 +46,26 @@ function makeDateTime(dateStr, timeStr) {
   return new Date(year, month, day, hour, min)
 }
 
-export function buildHeatmapLayer(daysInput, map) {
+export async function buildHeatmapLayer(map) {
   // If an old heatmap exists, remove it
   //   if (heatmap) {
   //     heatmap.setMap(null)
   //     heatmap = null
   //   }
-  const satFile = fs.readFileSync('fire.csv')
-  const usrFile = fs.readFileSync('user.csv')
-  const satelliteData = parseCsvFile(satFile)
-  const userData = parseCsvFile(usrFile)
+  const satFile = await (await fetch('https://localhost:5173/fire.csv')).blob()
+  const usrFile = await (await fetch('https://localhost:5173/user.csv')).blob()
+
+  const satelliteData = await parseCsvFile(satFile)
+  const userData = await parseCsvFile(usrFile)
 
   const allCsvData = satelliteData.concat(userData)
   // Read the user’s "days back" input
-  const daysBack = parseInt(daysInput.value, 10) || 0
+  const daysBack = 10
   // Filter data based on "daysBack"
   const filteredData = allCsvData.filter((row) => {
     return isWithinDays(row.acq_date, row.acq_time, daysBack)
   })
+
   // Convert each row -> WeightedLocation
   const heatmapPoints = filteredData.map((row) => {
     const lat = parseFloat(row.latitude)
@@ -83,11 +85,14 @@ export function buildHeatmapLayer(daysInput, map) {
     'rgba(255,0,0,1)', // red
   ]
   // Create the Heatmap
+
   const heatmap = new google.maps.visualization.HeatmapLayer({
     data: heatmapPoints,
     map: map,
     gradient: fireGradient,
   })
+
+  console.log(map)
 
   return heatmap
 }

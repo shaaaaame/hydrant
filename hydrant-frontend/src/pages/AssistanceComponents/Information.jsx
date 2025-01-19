@@ -45,7 +45,7 @@ function Information({ setLocation, setRank, setName, setDescription }) {
         />
       </Field>
       <Field label="Description">
-        <Textarea
+        <Input
           placeholder="Description"
           onChange={(e) => {
             setDescription(e.target.value)
