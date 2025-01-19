@@ -24,31 +24,26 @@ function Details({ marker }) {
       }}>
       <Grid templateColumns="1fr 1.5fr" gap="20px" width="100%" pr="5px">
         <AspectRatio ratio={9 / 16} maxW="100%">
-          <Image
-            src="https://bit.ly/naruto-sage"
-            alt="naruto"
-            objectFit="cover"
-            borderRadius={'20px'}
-          />
+          <iframe title="help" src={marker.video_url} allowFullScreen />
         </AspectRatio>
         <Flex direction="column" justify="flex-start" gap="15px">
           <p>
             <Text color="orange.300" fontWeight={'bold'}>
               Time:{' '}
             </Text>{' '}
-            {marker.time}
+            {marker.created_at}
           </p>
           <p>
             <Text color="orange.300" fontWeight={'bold'}>
               Coordinates:{' '}
             </Text>{' '}
-            {marker.lat}, {marker.lng}
+            {marker.latitude}, {marker.longitude}
           </p>
           <p>
             <Text color="orange.300" fontWeight={'bold'}>
-              Address:{' '}
+              Severity:{' '}
             </Text>{' '}
-            {marker.address}
+            {marker.rank}
           </p>
         </Flex>
       </Grid>

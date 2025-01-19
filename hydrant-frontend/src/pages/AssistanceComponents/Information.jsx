@@ -1,8 +1,19 @@
-import { Box, Button, Image, HStack, Text, Grid, Flex, StepsNextTrigger } from '@chakra-ui/react'
+import {
+  Box,
+  Button,
+  Image,
+  HStack,
+  Text,
+  Grid,
+  Flex,
+  StepsNextTrigger,
+  Input,
+} from '@chakra-ui/react'
 import { LuArrowRight, LuDownload } from 'react-icons/lu'
 import { useCallback, useEffect, useState } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import { Radio, RadioGroup } from '../../components/ui/radio'
+import { Field } from '../../components/ui/field'
 
 function Information({ setLocation, setRank }) {
   function success(position) {
@@ -23,31 +34,20 @@ function Information({ setLocation, setRank }) {
   }
 
   return (
-    <Box padding={'20px'} width="100%">
-      <Text fontSize={'xl'}>Please rank the fire on the following scale:</Text>
+    <Flex direction="column" justify={'flex-start'} padding={'20px'} width="100%" gap="20px">
+      <Field label="Name">
+        <Input placeholder="John" />
+      </Field>
+      <Field label="Description">
+        <Input placeholder="Description" />
+      </Field>
+      <Text>Please rank the fire on the following scale:</Text>
       <Box>
         <Image src="fire-rank.png" width="100%" />
         <Image src="fire-rank2.png" width="100%" />
       </Box>
-      {/* <div>
-        {location && (
-          <p>
-            Latitude: {location.latitude}, Longitude: {location.longitude}
-          </p>
-        )}
-      </div> */}
-      {/* {recordedChunks.length > 0 && (
-        <Button
-          onClick={handleDownload}
-          position={'absolute'}
-          right="20px"
-          bottom="30px"
-          bg="gray.100">
-          <LuDownload />
-        </Button>
-      )} */}
       <Box padding="20px" width="100%">
-        <RadioGroup defaultValue="1" width="100%" size="lg" onValueChange={(d) => setRank(d.value)}>
+        <RadioGroup defaultValue="1" width="100%" size="md" onValueChange={(d) => setRank(d.value)}>
           <Grid templateColumns="repeat(3, 1fr)">
             <Radio value="1" height="70px">
               Rank 1
@@ -77,7 +77,7 @@ function Information({ setLocation, setRank }) {
           </Button>
         </StepsNextTrigger>
       </Flex>
-    </Box>
+    </Flex>
   )
 }
 

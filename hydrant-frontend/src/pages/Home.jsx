@@ -13,20 +13,29 @@ function Home() {
       templateRows={'1fr 2fr 1fr'}
       gap="10px">
       <Grid templateColumns={'min-content 1fr'}>
-        <Heading as="h1" color="orange.300" fontFamily={'Climate Crisis'} fontSize={'180px'}>
+        <Heading
+          as="h1"
+          color="orange.300"
+          fontFamily={'Climate Crisis'}
+          fontSize={{ base: '50px', lg: '180px' }}>
           hydrant.
         </Heading>
         <Box position="relative" width="100%">
           <Text position={'absolute'} bottom="10px" right="10px" textAlign={'right'}>
-            firefighting <br />
             emergency <br />
+            firefighting <br />
             services.
           </Text>
         </Box>
       </Grid>
 
-      <Box width="100%" overflow={'hidden'} position="relative" borderRadius={'20px'}>
-        <Image src="fighter.jpg" position={'relative'} />
+      <Box width="100%" overflow={'hidden'} position="relative" borderRadius={'12px'}>
+        <Image
+          src="fighter-mobile.jpg"
+          position={'relative'}
+          borderRadius={'12px'}
+          top={{ base: 0, md: '-90%' }}
+        />
       </Box>
 
       <Flex width={'100%'} direction="row" height={'30%'}>
@@ -41,21 +50,46 @@ function Home() {
               bg="orange.300"
               width={{ base: '100%' }}
               height={{ base: '100%', md: '200px' }}
-              position="relative">
-              <Box position="absolute" top="13px" left="13px" fontWeight={'bold'} fontSize="xl">
+              position="relative"
+              borderRadius="12px">
+              <Box
+                position="absolute"
+                top="13px"
+                left="13px"
+                fontWeight={'bold'}
+                fontSize={{ base: 'xs', md: 'xl' }}>
                 I am in need.
               </Box>
-              <Box position="absolute" bottom="10px" right="10px" fontSize={'sm'}>
+              <Box
+                position="absolute"
+                bottom="10px"
+                right="10px"
+                fontSize={'sm'}
+                display={{ base: 'none', md: 'inherit' }}>
                 Share your location with us and we’ll help.
               </Box>
             </Button>
           </Link>
           <Link to={'/assistance'}>
-            <Button bg="orange.300" width={{ base: '100%' }} height={{ base: '100%', md: '200px' }}>
-              <Box position="absolute" top="13px" left="13px" fontWeight={'bold'} fontSize="xl">
+            <Button
+              bg="orange.300"
+              width={{ base: '100%' }}
+              height={{ base: '100%', md: '200px' }}
+              borderRadius="12px">
+              <Box
+                position="absolute"
+                top="13px"
+                left="13px"
+                fontWeight={'bold'}
+                fontSize={{ base: 'xs', md: 'xl' }}>
                 I am able to help.
               </Box>
-              <Box position="absolute" bottom="10px" right="10px" fontSize="sm">
+              <Box
+                position="absolute"
+                bottom="10px"
+                right="10px"
+                fontSize="sm"
+                display={{ base: 'none', md: 'inherit' }}>
                 Find those in need.
               </Box>
             </Button>

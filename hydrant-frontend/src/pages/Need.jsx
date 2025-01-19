@@ -13,6 +13,7 @@ import {
 import { useState } from 'react'
 import Information from './AssistanceComponents/Information'
 import Send from './AssistanceComponents/Send'
+import { LuCamera, LuInfo, LuSend } from 'react-icons/lu'
 
 function Need() {
   const [recordedChunks, setRecordedChunks] = useState([])
@@ -22,10 +23,10 @@ function Need() {
   return (
     <Box width="100vw" height="100svh">
       <StepsRoot defaultStep={0} count={3} width="100vw" linear>
-        <StepsList padding="10px" width="100%">
-          <StepsItem index={0} title="Record" width="30%" />
-          <StepsItem index={1} title="Information" width="30%" />
-          <StepsItem index={2} title="Send" width="30%" />
+        <StepsList width="100%">
+          <StepsItem index={0} icon={<LuCamera />} />
+          <StepsItem index={1} icon={<LuInfo />} />
+          <StepsItem index={2} icon={<LuSend />} />
         </StepsList>
 
         <StepsContent index={0}>
