@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Climate+Crisis&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Space Mono', serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -15,8 +16,11 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3, h4{
-  font-family: "Climate Crisis", serif ;
+h1,
+h2,
+h3,
+h4 {
+  font-family: 'Climate Crisis', serif;
 }
 
 a {

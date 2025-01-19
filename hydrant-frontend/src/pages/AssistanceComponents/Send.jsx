@@ -1,7 +1,9 @@
 import { useEffect, useCallback } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import Loading from '../../utils/loading'
-import { Center } from '@chakra-ui/react'
+import { Button, Center, Flex, Heading } from '@chakra-ui/react'
+import { Link } from 'react-router'
+import { LuBadgeCheck } from 'react-icons/lu'
 
 function Send({ recordedChunks, location, rank }) {
   const handleDownload = useCallback(() => {
@@ -37,7 +39,17 @@ function Send({ recordedChunks, location, rank }) {
   if (recordedChunks && location && rank) {
     return (
       <Center width="100%" height="100svh">
-        <Loading />
+        {isPending ? (
+          <Loading />
+        ) : (
+          <Flex direction="column" gap="20px" height="300px" align={'center'}>
+            <LuBadgeCheck size="200px" color="green" />
+            <Heading as="h3">Help is on the way.</Heading>
+            <Link to="/">
+              <Button bg="orange.300">Back to home.</Button>
+            </Link>
+          </Flex>
+        )}
       </Center>
     )
   } else {

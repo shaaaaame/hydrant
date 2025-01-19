@@ -20,12 +20,12 @@ function Need() {
   const [rank, setRank] = useState(1)
 
   return (
-    <Box width="100%" height="100svh">
-      <StepsRoot defaultStep={0} count={3}>
+    <Box width="100vw" height="100svh">
+      <StepsRoot defaultStep={0} count={3} width="100vw" linear>
         <StepsList padding="10px" width="100%">
-          <StepsItem index={0} title="Record" />
-          <StepsItem index={1} title="Information" />
-          <StepsItem index={2} title="Send" />
+          <StepsItem index={0} title="Record" width="30%" />
+          <StepsItem index={1} title="Information" width="30%" />
+          <StepsItem index={2} title="Send" width="30%" />
         </StepsList>
 
         <StepsContent index={0}>
