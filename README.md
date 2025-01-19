@@ -1,13 +1,13 @@
-
 # Hydrant
 
 **Forest fire emergency aid with data visualization to help stop fires.**
 
-Hydrant is a project designed to help visualize fire data (both satellite and user‐reported) on an interactive Google Map. It includes a robust backend built with **NestJS**, **MySQL**, and **Docker**, alongside a **React**-based frontend.
+Hydrant is a project designed to help visualize fire data (both satellite and user‐reported) on an interactive Google Map. It includes a robust backend built with **NestJS**, **MySQL**, and **Docker**, alongside a **React**-based frontend. Additionally, it uses **machine learning** to predict fire spread based on historical and real-time data.
 
 Key features:
 - **Map visualization** using the Google Maps JavaScript API.
 - **Data layers**: satellite heatmaps, user-reported markers, and fire prediction heatmaps.
+- **Machine learning integration** for fire spread prediction.
 - **Backend integration** for user data storage and video attachments.
 - **CSV ingestion** for fire and user data.
 - **SQL Database** for structured data management and efficient queries.
@@ -24,7 +24,8 @@ Key features:
   - [Backend](#backend)
 - [Usage](#usage)
   - [Running Locally](#running-locally)
-  - [Loading CSV Files](#loading-csv-files)
+  - [Querying Data](#querying-data)
+- [Machine Learning for Fire Spread Prediction](#machine-learning-for-fire-spread-prediction)
 - [Map Visualization Details](#map-visualization-details)
   - [Heatmap Layer](#heatmap-layer)
   - [Marker Layer](#marker-layer)
@@ -37,12 +38,12 @@ Key features:
 
 ## Motivation & Features
 
-Hydrant aims to provide an intuitive tool to assist firefighting teams, agencies, and volunteers by leveraging advanced technologies like **geospatial visualization**, **predictive analytics**, and **structured data storage**.
+Hydrant aims to provide an intuitive tool to assist firefighting teams, agencies, and volunteers by leveraging advanced technologies like **geospatial visualization**, **predictive analytics**, **machine learning**, and **structured data storage**.
 
 Key features:
 1. **Live satellite data** heatmap with CSV parsing.
 2. **User-reported markers** with video attachments.
-3. **Fire prediction** heatmap for forecasting spread.
+3. **Fire prediction** heatmap for forecasting spread using a **machine learning model**.
 4. **SQL database** integration to store and manage user-reported and system-generated data.
 5. **Backend API** for secure and efficient data transactions.
 
@@ -50,13 +51,14 @@ Key features:
 
 ## Project Structure
 
-```
+```plaintext
 hydrant/
   ├── backend/                # NestJS backend
   │    ├── src/
   │    │    ├── controllers/  # API endpoints
   │    │    ├── services/     # Core business logic
   │    │    ├── entities/     # TypeORM entities for SQL models
+  │    │    ├── ml/           # Machine learning scripts and models
   │    │    ├── database/     # MySQL configuration and migrations
   │    └── ...
   │
@@ -72,8 +74,8 @@ hydrant/
   ├── .env                    # Environment configuration
   ├── package.json            # Dependencies and scripts
   └── README.md               # This file
-```
 
+```
 ## Technologies & Libraries
 
 ### Frontend
@@ -88,6 +90,12 @@ hydrant/
 - **MySQL** – as the primary SQL database for structured data storage.
 - **TypeORM** – for managing database schema and queries.
 - **Docker** – for containerized development and deployment.
+
+### Machine Learning
+- **Python** – for building and training ML models.
+- **scikit-learn** – for predictive modeling and analytics.
+- **pandas/numpy** – for data manipulation.
+- **Flask** – for serving ML models in the backend.
 
 ---
 
@@ -142,11 +150,31 @@ Start both the frontend and backend servers:
 
 Open your browser and navigate to the frontend (usually `http://localhost:5173`).
 
-### Loading CSV Files
+### Querying Data 
 
-Use the **Map** page to upload:
+Query data from our back end to get:
 - **Satellite CSV** for fire brightness heatmap.
 - **User CSV** for user-reported markers.
+
+---
+
+### Machine Learning for Fire Spread Prediction
+
+Hydrant uses a machine learning algorithm to predict fire spread based on historical and real-time data. The prediction model accounts for:
+- **Fire intensity**.
+- **Wind direction and speed**.
+- **Terrain type and vegetation**.
+- **Satellite data trends**.
+
+#### Output
+The predictions are displayed as a **heatmap layer** on the map.
+
+#### Training
+The ML model is trained with:
+1. **Satellite fire data** ingested via CSV.
+2. **Environmental variables** (e.g., weather, terrain).
+
+The model backend is implemented with **Flask**, integrated into the **NestJS API** for seamless data flow.
 
 ---
 
